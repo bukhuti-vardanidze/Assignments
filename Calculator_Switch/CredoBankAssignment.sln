@@ -3,25 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorSwitch", "CalculatorSwitch.csproj", "{9C450E39-32BE-4644-9F79-8D9922AA3476}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorSwitch", "CalculatorSwitch.csproj", "{9C450E39-32BE-4644-9F79-8D9922AA3476}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fibonacci", "..\Fibonacci\Fibonacci.csproj", "{71F37FC1-5446-406B-9958-FEEAE93906A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fibonacci", "..\Fibonacci\Fibonacci.csproj", "{71F37FC1-5446-406B-9958-FEEAE93906A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearch", "..\BinarySearch\BinarySearch.csproj", "{EE5F66CF-F6B2-4A3D-AFCB-E72198624430}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySearch", "..\BinarySearch\BinarySearch.csproj", "{EE5F66CF-F6B2-4A3D-AFCB-E72198624430}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VowelOrNot", "..\VowelOrNot\VowelOrNot.csproj", "{CE82141F-9DF8-4A09-9075-9D176A2C56E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VowelOrNot", "..\VowelOrNot\VowelOrNot.csproj", "{CE82141F-9DF8-4A09-9075-9D176A2C56E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberToBinary", "..\NumberToBinary\NumberToBinary.csproj", "{BBD85FAB-FA41-4418-A5E4-650F03C0CB8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumberToBinary", "..\NumberToBinary\NumberToBinary.csproj", "{BBD85FAB-FA41-4418-A5E4-650F03C0CB8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerBuilder", "..\BurgerBuilder\BurgerBuilder.csproj", "{1A39E929-D326-4122-90EC-7997B7663187}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BurgerBuilder", "..\BurgerBuilder\BurgerBuilder.csproj", "{1A39E929-D326-4122-90EC-7997B7663187}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeConsole", "..\DateTimeConsole\DateTimeConsole.csproj", "{A1E1F7C5-CF4C-408C-B648-8B1CDC647AAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeConsole", "..\DateTimeConsole\DateTimeConsole.csproj", "{A1E1F7C5-CF4C-408C-B648-8B1CDC647AAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballDataReader", "..\FootballDataReader\FootballDataReader.csproj", "{7336CE30-C395-42DE-AB6E-D68FA81DBABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballDataReader", "..\FootballDataReader\FootballDataReader.csproj", "{7336CE30-C395-42DE-AB6E-D68FA81DBABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionFunctions", "..\ExtensionFunctions\ExtensionFunctions.csproj", "{C791DF93-D4C8-49EB-934C-8DBC6514102D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensionFunctions", "..\ExtensionFunctions\ExtensionFunctions.csproj", "{C791DF93-D4C8-49EB-934C-8DBC6514102D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe", "..\TicTacToe\TicTacToe.csproj", "{3D2D9F6B-3E5C-4615-84FE-AEC0FE7E39AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe", "..\TicTacToe\TicTacToe.csproj", "{3D2D9F6B-3E5C-4615-84FE-AEC0FE7E39AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordAnalyzer", "..\WordAnalyzer\WordAnalyzer.csproj", "{B968E6DC-232B-4C94-9DF2-B9A6487BA6FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{3D2D9F6B-3E5C-4615-84FE-AEC0FE7E39AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D2D9F6B-3E5C-4615-84FE-AEC0FE7E39AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D2D9F6B-3E5C-4615-84FE-AEC0FE7E39AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B968E6DC-232B-4C94-9DF2-B9A6487BA6FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B968E6DC-232B-4C94-9DF2-B9A6487BA6FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B968E6DC-232B-4C94-9DF2-B9A6487BA6FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B968E6DC-232B-4C94-9DF2-B9A6487BA6FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
