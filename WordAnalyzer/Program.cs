@@ -26,32 +26,7 @@ namespace WordsAnalyzer
 
         public static void TopWords()
         {
-            string path = @"C:\Users\varda\Desktop\CredoBankAssignments\WordAnalyzer\File\words_alpha.txt";
-            string result = File.ReadAllText(path);
-            var words = new List<string>(result.Split(new char[] { }, StringSplitOptions.RemoveEmptyEntries));
-            Console.WriteLine($"Number Of Words : {words.Count}");
-
-
-            if (words.Count > 0)
-            {
-
-                string longestWord = words[0];
-                for (int i = 0; i < 100; i++)
-                {
-
-                    string item = words[i];
-                    if (item.Length > longestWord.Length)
-                    {
-                        longestWord = item;
-
-                    }
-                }
-                Console.WriteLine($"Longest Word: {longestWord}  \n Lenght is : {longestWord.Length} ");
-            }
-
-
-
-
+         
 
         }
 
