@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "DateTimeConsole": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:62474;http://localhost:62475"
+    }
+  }
+}
