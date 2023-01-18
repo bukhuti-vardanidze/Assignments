@@ -1,37 +1,34 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ToDoApp.Api.Db.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using ToDoApp.Api.Db.Entities;
 
 namespace ToDoApp.Api.Db
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<UserEntity, RoleEntity, int>
     {
-        public AppDbContext()
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
         }
-        public DbSet<TodoEntity> Todos { get; set; }
-        public AppDbContext(DbContextOptions options) : base(options)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
 
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseSqlServer("Server=localhost;Database=todoapp_db;User Id=sa;Password=pass123;");
 
-            var db = new AppDbContext(optionsBuilder.Options);
 
-            db.Todos.Add(new TodoEntity
-            {
-                Id = 1,
-                UserId = 1,
-                StatusId = 1,
-                Name = "person 1",
-                Description = "project_1",
-                Deadline = DateTime.Now
+            //builder.Entity<UserEntity>().ToTable("Users");
+            //builder.Entity<RoleEntity>().ToTable("Roles");
+            //builder.Entity<IdentityUserRole<int>>().ToTable("UserRoles");
+            //builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
+            //builder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
+            //builder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");
+            //builder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
 
-            });
+            // builder.Ignore<IdentityUserToken<int>>();
 
-            db.SaveChanges();
+            // builder.Entity<IdentityUserRole<int>>().HasKey(p => new { p.UserId, p.RoleId });
         }
 
-       
     }
 }
