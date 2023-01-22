@@ -3,6 +3,7 @@ using ToDoAPP.Api.Auth;
 using ToDoAPP.Api.Db;
 using ToDoAPP.Api.Db.Entities;
 using ToDoAPP.Api.Auth;
+using ToDoAPP.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextPool<AppDbContext>(c =>
     c.UseSqlServer(builder.Configuration["AppDbContextConnection"]));
 
+builder.Services.AddTransient<ISendEmailRequestRepository, SendEmailRequestRepository>();
 
 
 var app = builder.Build();
