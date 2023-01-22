@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
-using ToDoApp.Api.Auth;
-using ToDoApp.Api.Db.Entities;
-using ToDoApp.Api.Db;
+using ToDoAPP.Api.Auth;
+using ToDoAPP.Api.Db.Entities;
+using ToDoAPP.Api.Db;
 
 namespace ToDoAPP.Api.Auth
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace ToDoApp.Api.Db.Entities
+namespace ToDoAPP.Api.Db.Entities
 {
     public class RoleEntity : IdentityRole<int>
     {

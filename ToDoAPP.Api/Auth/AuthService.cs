@@ -1,4 +1,4 @@
-﻿namespace ToDoApp.Api.Auth
+﻿namespace ToDoAPP.Api.Auth
 {
     public interface IAuthService
 {

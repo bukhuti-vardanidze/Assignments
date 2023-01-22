@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using ToDoApp.Api.Auth;
-using ToDoApp.Api.Db;
-using ToDoApp.Api.Db.Entities;
+using ToDoAPP.Api.Auth;
+using ToDoAPP.Api.Db;
+using ToDoAPP.Api.Db.Entities;
 using ToDoAPP.Api.Auth;
 
 var builder = WebApplication.CreateBuilder(args);

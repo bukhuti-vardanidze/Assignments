@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ToDoApp.Api.Db.Entities;
 
-namespace ToDoApp.Api.Db
+using ToDoAPP.Api.Db.Entities;
+
+namespace ToDoAPP.Api.Db
 {
     public class AppDbContext : IdentityDbContext<UserEntity, RoleEntity, int>
     {
+        public DbSet<SendEmailRequestEntity> SendEmailRequests { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 

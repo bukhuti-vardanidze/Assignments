@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using ToDoApp.Api.Db;
-using ToDoApp.Api.Db.Entities;
+using ToDoAPP.Api.Db;
+using ToDoAPP.Api.Db.Entities;
 
 
 namespace TodoAppAuthDemo.Api.Db;
