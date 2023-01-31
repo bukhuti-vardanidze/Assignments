@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoveElementToEnd", "..\Move
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagementSystem", "..\WarehouseManagementSystem\WarehouseManagementSystem.csproj", "{9D378AD0-27AD-4EDE-91F0-0F0ACF2E6214}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoAPP.Api", "..\ToDoAPP.Api\ToDoAPP.Api.csproj", "{F7DCA4D0-54EB-48EF-A9B3-05184D5C7CFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoAPP.Api", "..\ToDoAPP.Api\ToDoAPP.Api.csproj", "{F7DCA4D0-54EB-48EF-A9B3-05184D5C7CFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPA_Calculator", "..\GPA_Calculator\GPA_Calculator.csproj", "{79C5F44B-F6CD-4ABC-826B-9845322BADE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{F7DCA4D0-54EB-48EF-A9B3-05184D5C7CFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7DCA4D0-54EB-48EF-A9B3-05184D5C7CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7DCA4D0-54EB-48EF-A9B3-05184D5C7CFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C5F44B-F6CD-4ABC-826B-9845322BADE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C5F44B-F6CD-4ABC-826B-9845322BADE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C5F44B-F6CD-4ABC-826B-9845322BADE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C5F44B-F6CD-4ABC-826B-9845322BADE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
