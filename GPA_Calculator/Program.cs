@@ -1,4 +1,5 @@
 using GPA_Calculator.Db;
+using GPA_Calculator.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ var connection = builder.Configuration["AppDbContextConnection"];
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(connection));
 
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
