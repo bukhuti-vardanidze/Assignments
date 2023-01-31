@@ -11,6 +11,7 @@ namespace GPA_Calculator.Db.Entities
     //}
     public class StudentEntity
     {
+        [Required]
         public int Id { get; set; }
         [Required]
         public string FirstName { get; set; }
