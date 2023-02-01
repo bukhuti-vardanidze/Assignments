@@ -29,6 +29,18 @@ namespace GPA_Calculator.Controllers
         }
 
 
+        [HttpGet("GetSingleStudentById")]
+        public async Task<IActionResult> GetSingleStudent(int studentId)
+        {
+            var result = await _studentRepository.GetSingleStudentAsync(studentId);
+            if (result == null)
+            {
+                return NotFound("students not found");
+            }
+            return Ok(result);
+        }
+
+
         [HttpPost("register")]
         public async Task<IActionResult> StudentRegister([FromBody] StudentRegistrationRequest  request)
         {

@@ -9,6 +9,7 @@ namespace GPA_Calculator.Repositories
     public interface IStudentRepository
     {
         Task<List<StudentRegistrationRequest>> GetAllStudentsAsync();
+        Task<List<StudentRegistrationRequest>> GetSingleStudentAsync(int StudentId);
         Task<int> StudentRegisterAsync([FromBody] StudentRegistrationRequest studentRegistration);
     }
 
@@ -36,6 +37,24 @@ namespace GPA_Calculator.Repositories
             }).ToListAsync();
             return students;
         }
+
+
+        public async Task<List<StudentRegistrationRequest>> GetSingleStudentAsync(int StudentId)
+        {
+            var student = await _db.StudentDb.Where(x => x.Id == StudentId).Select(x => new StudentRegistrationRequest()
+            {
+                Id= x.Id,
+                FirstName= x.FirstName,
+                LastName= x.LastName,
+                PersonalNumber= x.PersonalNumber,
+                CourseName= x.CourseName
+            }).ToListAsync();
+            return student;
+            
+        }
+
+      
+
 
         public async Task<int> StudentRegisterAsync([FromBody]StudentRegistrationRequest studentRegistration )
         {
