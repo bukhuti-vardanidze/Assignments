@@ -10,7 +10,8 @@ var connection = builder.Configuration["AppDbContextConnection"];
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(connection));
 
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<ISubjectRepository, SubjectRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
