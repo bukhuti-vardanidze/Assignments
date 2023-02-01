@@ -12,6 +12,7 @@ options.UseSqlServer(connection));
 
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<ISubjectRepository, SubjectRepository>();
+builder.Services.AddTransient<IGradeRepository, GradeRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

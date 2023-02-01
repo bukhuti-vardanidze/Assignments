@@ -4,14 +4,14 @@ namespace GPA_Calculator.Db.Entities
 {
     public class GradeEntity
     {
-        [Required]
         public int Id { get; set; }
-        [Required]
+       
         public int SubjectId { get; set; }
-        [Required]
+        
         public int StudentId { get; set; }
-        [Required]
-        public int Score { get; set; }
+        
+        [Range(0,100, ErrorMessage = "Score must be between 0 and 100")]
+        public double Score { get; set; }
 
     }
 }

@@ -45,6 +45,7 @@ namespace GPA_Calculator.Controllers
         public async Task<IActionResult> StudentRegister([FromBody] StudentRegistrationRequest  request)
         {
             var result = await _studentRepository.StudentRegisterAsync(request);
+            
             return Ok(result);
         }
 
