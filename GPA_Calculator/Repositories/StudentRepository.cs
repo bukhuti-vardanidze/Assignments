@@ -2,15 +2,19 @@
 using GPA_Calculator.Db.Entities;
 using GPA_Calculator.Models.Request;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GPA_Calculator.Repositories
 {
     public interface IStudentRepository
     {
+        Task<List<StudentRegistrationRequest>> GetAllStudentsAsync();
+        Task<int> StudentRegisterAsync([FromBody] StudentRegistrationRequest studentRegistration);
     }
 
     public class StudentRepository : IStudentRepository
     {
+
         private readonly AppDbContext _db;
 
         public StudentRepository(AppDbContext db) 
@@ -19,7 +23,21 @@ namespace GPA_Calculator.Repositories
         }
 
 
-        public async Task<List<StudentEntity>> StudentRegisterAsync([FromBody]StudentRegistrationRequest studentRegistration )
+        public async Task<List<StudentRegistrationRequest>> GetAllStudentsAsync()
+        {
+            var students = await _db.StudentDb.Select(x => new StudentRegistrationRequest()
+            {
+                Id= x.Id,
+                FirstName= x.FirstName,
+                LastName= x.LastName,
+                PersonalNumber= x.PersonalNumber,
+                CourseName= x.CourseName,
+                
+            }).ToListAsync();
+            return students;
+        }
+
+        public async Task<int> StudentRegisterAsync([FromBody]StudentRegistrationRequest studentRegistration )
         {
             var student = new StudentEntity
             {
@@ -29,9 +47,10 @@ namespace GPA_Calculator.Repositories
                 PersonalNumber = studentRegistration.PersonalNumber,
                 CourseName = studentRegistration.CourseName
             };
-            _db.StudentDb.AddAsync(student);
-            _db.SaveChangesAsync();
-            return _db.StudentDb.ToList();
+            _db.StudentDb.Add(student);
+            await _db.SaveChangesAsync();
+
+            return student.Id;
             
         }
 

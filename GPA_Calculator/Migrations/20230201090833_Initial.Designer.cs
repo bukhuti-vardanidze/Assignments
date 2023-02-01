@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GPACalculator.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230131092818_Initial")]
+    [Migration("20230201090833_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
