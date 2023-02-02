@@ -33,6 +33,8 @@ namespace GPA_Calculator.Repositories
                 SubjectId= x.SubjectId,
                 Score = (int)x.Score
             }).ToListAsync();
+
+            
             return result;
         }
 
@@ -45,6 +47,7 @@ namespace GPA_Calculator.Repositories
                 SubjectId = x.SubjectId,
                 Score = (int)x.Score
             }).ToListAsync();
+
             return result;
         }
 
@@ -58,9 +61,19 @@ namespace GPA_Calculator.Repositories
                 SubjectId = request.SubjectId,
                 Score = (int)request.Score
             };
+
+           
+
             _db.GradeDb.Add(result);
             await _db.SaveChangesAsync();
             return result.Id;
+        }
+
+
+        public void GpaCalculator(double score)
+        {
+            var result = _db.GradeDb.Select(x => x.Score).ToList();
+            
         }
 
 
