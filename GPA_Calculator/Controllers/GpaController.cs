@@ -1,4 +1,5 @@
-﻿using GPA_Calculator.Models.Request;
+﻿using GPA_Calculator.Db;
+using GPA_Calculator.Models.Request;
 using GPA_Calculator.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +12,14 @@ namespace GPA_Calculator.Controllers
         private readonly IGradeRepository _gradeRepository;
         private readonly IStudentRepository _studentRepository;
         private readonly ISubjectRepository _subjectRepository;
+        private readonly AppDbContext _context;
 
-        public GpaController(IGradeRepository gradeRepository, IStudentRepository studentRepository, ISubjectRepository subjectRepository)
+        public GpaController(IGradeRepository gradeRepository, IStudentRepository studentRepository, ISubjectRepository subjectRepository,AppDbContext context )
         {
             _gradeRepository = gradeRepository;
             _studentRepository = studentRepository;
             _subjectRepository = subjectRepository;
+            _context = context;
             
         }
 
@@ -46,6 +49,17 @@ namespace GPA_Calculator.Controllers
             return Ok(result);
         }
 
+
+        [HttpGet("get-data")]
+        public IActionResult GetData()
+        {
+            var result = from t1 in _context.StudentDb.ToList()
+                         join t2 in _context.GradeDb on t1.Id equals t2.Id
+                         select new { t1.PersonalNumber, t2.Score };
+            
+            return Ok(result);
+        }
+        
 
     }
 }
