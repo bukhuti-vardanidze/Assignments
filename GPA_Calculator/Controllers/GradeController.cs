@@ -35,6 +35,9 @@ namespace GPA_Calculator.Controllers
             {
               return NotFound("grade info not found");
             }
+
+           
+            
             return Ok(result);
         }
 
@@ -50,8 +53,7 @@ namespace GPA_Calculator.Controllers
         }
 
 
-
-
+      
 
 
     }
