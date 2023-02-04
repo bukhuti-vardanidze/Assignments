@@ -51,15 +51,13 @@ namespace GPA_Calculator.Controllers
 
 
         [HttpGet("students/{gradeId}/Get-Grade")]
-        public async Task<IActionResult> GetSingleGrade(int gradeId)
+        public async Task<IActionResult> GetScoreFromResult(int gradeId)
         {
-            var result = await _gradeRepository.GetSingleGradeById(gradeId);
+            var result = await _gradeRepository.GetStudentScoreById(gradeId);
             if (result == null)
             {
                 return NotFound("grade info not found");
             }
-
-
 
             return Ok(result);
         }

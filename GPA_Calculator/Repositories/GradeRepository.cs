@@ -11,11 +11,7 @@ namespace GPA_Calculator.Repositories
         Task<List<GradeRegisterRequest>> GetAllGrade();
         Task<List<GradeRegisterRequest>> GetSingleGradeById(int gradeId);
         Task<GradeEntity> AddGrade([FromBody] GradeRegisterRequest request, int id);
-
-
-
-
-
+        Task<List<int>> GetStudentScoreById(int gradeId);
 
     }
     public class GradeRepository : IGradeRepository
@@ -75,7 +71,15 @@ namespace GPA_Calculator.Repositories
         }
 
         
-     
+
+        public async Task<List<int>> GetStudentScoreById(int gradeId)
+        {
+            var result =  _db.GradeDb.Where(x => x.Id == gradeId).Select(x=>(int)x.Score).ToList();
+            return  await Task.FromResult(result);
+           
+           
+        }
+
 
 
     }

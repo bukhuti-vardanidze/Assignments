@@ -36,8 +36,19 @@ namespace GPA_Calculator.Controllers
               return NotFound("grade info not found");
             }
 
-           
-            
+            return Ok(result);
+        }
+
+
+        [HttpGet("Get-GRADDE")]
+        public async Task<IActionResult> GetScoreFromResult(int gradeId)
+        {
+            var result = await _gradeRepository.GetStudentScoreById(gradeId);
+            if (result == null)
+            {
+                return NotFound("grade info not found");
+            }
+
             return Ok(result);
         }
 
