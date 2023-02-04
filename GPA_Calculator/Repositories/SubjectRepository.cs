@@ -14,6 +14,7 @@ namespace GPA_Calculator.Repositories
         Task<List<SubjectEntity>> GetTop3EasySubject();
 
         Task<List<SubjectEntity>> GetLast3HardSubject();
+        Task<double> GetGPA(int studentId);
 
     }
 
@@ -84,7 +85,7 @@ namespace GPA_Calculator.Repositories
                 Top3.Add(await _db.SubjectDb.FirstOrDefaultAsync(x => x.Id == items.SubjectName));
             }
             
-            return Top3;
+            return Top3.ToList();
         }
 
 
@@ -103,9 +104,37 @@ namespace GPA_Calculator.Repositories
                 Top3.Add(await _db.SubjectDb.FirstOrDefaultAsync(x => x.Id == items.SubjectName));
             }
 
-            return Top3;
+            return Top3.ToList();
         }
 
+
+        public async Task<double> GetGPA(int studentId)
+        {
+            var gpa = 0.0;
+            var GP = 0.0;
+            var studentGrade = _db.GradeDb.Where(x=>x.StudentId== studentId);
+
+            foreach (var grades in studentGrade)
+            {
+                var subject = await _db.SubjectDb.FindAsync(grades.SubjectId);
+                 GP = CalculeGP(grades.Score);
+                gpa += GP * subject.Credits; 
+            }
+
+            return gpa / GP;
+        
+        }
+
+
+        private double CalculeGP(double score)
+        {
+            if (score < 50) return 0;
+            if (score <= 60) return 0.5;
+            if (score <= 70) return 1.0;
+            if (score <= 80) return 2.0;
+            if (score <= 90) return 3.0;
+            return 4.0;
+        }
 
 
     }
