@@ -10,7 +10,7 @@ namespace GPA_Calculator.Repositories
     {
         Task<List<SubjectRegisterRequest>> GetAllSubjectAsync();
         Task<List<SubjectRegisterRequest>> GetSingleSubjectAsync(int subjectId);
-        Task<int> AddSubjectAsync([FromBody] SubjectRegisterRequest request);
+        Task<SubjectEntity> AddSubjectAsync([FromBody] SubjectRegisterRequest request);
 
     }
 
@@ -49,7 +49,7 @@ namespace GPA_Calculator.Repositories
 
         }
 
-        public async Task<int> AddSubjectAsync([FromBody] SubjectRegisterRequest request)
+        public async Task<SubjectEntity> AddSubjectAsync([FromBody] SubjectRegisterRequest request)
         {
             var subject = new SubjectEntity
             {
@@ -59,7 +59,7 @@ namespace GPA_Calculator.Repositories
             };
             _db.SubjectDb.Add(subject);
             await _db.SaveChangesAsync();
-            return subject.Id;
+            return subject;
 
 
         }

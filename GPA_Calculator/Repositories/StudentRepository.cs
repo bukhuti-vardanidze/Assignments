@@ -10,7 +10,7 @@ namespace GPA_Calculator.Repositories
     {
         Task<List<StudentRegistrationRequest>> GetAllStudentsAsync();
         Task<List<StudentRegistrationRequest>> GetSingleStudentAsync(int StudentId);
-        Task<int> StudentRegisterAsync([FromBody] StudentRegistrationRequest studentRegistration);
+        Task<StudentEntity> StudentRegisterAsync([FromBody] StudentRegistrationRequest studentRegistration);
     }
 
     public class StudentRepository : IStudentRepository
@@ -56,7 +56,7 @@ namespace GPA_Calculator.Repositories
       
 
 
-        public async Task<int> StudentRegisterAsync([FromBody]StudentRegistrationRequest studentRegistration )
+        public async Task<StudentEntity> StudentRegisterAsync([FromBody]StudentRegistrationRequest studentRegistration )
         {
             var student = new StudentEntity
             {
@@ -69,7 +69,7 @@ namespace GPA_Calculator.Repositories
             _db.StudentDb.Add(student);
             await _db.SaveChangesAsync();
 
-            return student.Id;
+            return student;
             
         }
 

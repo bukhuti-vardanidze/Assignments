@@ -10,8 +10,9 @@ namespace GPA_Calculator.Repositories
     {
         Task<List<GradeRegisterRequest>> GetAllGrade();
         Task<List<GradeRegisterRequest>> GetSingleGradeById(int gradeId);
-        Task<int> AddGrade([FromBody] GradeRegisterRequest request);
-       
+        Task<GradeEntity> AddGrade([FromBody] GradeRegisterRequest request, int id);
+
+
 
 
 
@@ -56,21 +57,21 @@ namespace GPA_Calculator.Repositories
         }
 
 
-        public async Task<int> AddGrade([FromBody] GradeRegisterRequest request)
+        public async Task<GradeEntity> AddGrade([FromBody] GradeRegisterRequest request, int id)
         {
-            var result = new GradeEntity
-            {
-                Id = request.Id,
-                StudentId = request.StudentId,
-                SubjectId = request.SubjectId,
-                Score = (int)request.Score
-            };
+            var result = new GradeEntity();
+
+            result.Id = id;
+            result.StudentId = request.StudentId;
+            result.SubjectId = request.SubjectId;
+            result.Score = (int)request.Score;
+            
 
 
 
             _db.GradeDb.Add(result);
             await _db.SaveChangesAsync();
-            return result.Id;
+            return result;
         }
 
         

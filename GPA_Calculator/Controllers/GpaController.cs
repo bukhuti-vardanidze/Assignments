@@ -38,10 +38,10 @@ namespace GPA_Calculator.Controllers
             return Ok(result);
         }
 
-        [HttpPost("students/{studentid}/Grade")]
-        public async Task<IActionResult> AddGrade([FromBody] GradeRegisterRequest request)
+        [HttpPost("students/Grade-register")]
+        public async Task<IActionResult> AddGrade([FromBody] GradeRegisterRequest request, int id)
         {
-            var result = await _gradeRepository.AddGrade(request);
+            var result = await _gradeRepository.AddGrade(request, id);
             if (result == null)
             {
                 return NotFound("grade info not found");
@@ -50,8 +50,23 @@ namespace GPA_Calculator.Controllers
         }
 
 
+        [HttpGet("students/{gradeId}/Get-Grade")]
+        public async Task<IActionResult> GetSingleGrade(int gradeId)
+        {
+            var result = await _gradeRepository.GetSingleGradeById(gradeId);
+            if (result == null)
+            {
+                return NotFound("grade info not found");
+            }
 
-        
+
+
+            return Ok(result);
+        }
+
+
+
+
 
 
 
@@ -70,10 +85,10 @@ namespace GPA_Calculator.Controllers
         //    var result = from t1 in _context.StudentDb.ToList()
         //                 join t2 in _context.GradeDb on t1.Id equals t2.Id
         //                 select new { t1.PersonalNumber, t2.Score };
-            
+
         //    return Ok(result);
         //}
-        
+
 
     }
 }

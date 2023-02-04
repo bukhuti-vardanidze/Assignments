@@ -42,9 +42,9 @@ namespace GPA_Calculator.Controllers
         }
 
         [HttpPost("Add-Grade")]
-        public async Task<IActionResult> AddGrade([FromBody]GradeRegisterRequest request)
+        public async Task<IActionResult> AddGrade([FromBody]GradeRegisterRequest request, int id)
         {
-            var result = await _gradeRepository.AddGrade(request);
+            var result = await _gradeRepository.AddGrade(request,id);
             if (result == null)
             {
                 return NotFound("grade info not found");
