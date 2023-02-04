@@ -11,6 +11,9 @@ namespace GPA_Calculator.Repositories
         Task<List<SubjectRegisterRequest>> GetAllSubjectAsync();
         Task<List<SubjectRegisterRequest>> GetSingleSubjectAsync(int subjectId);
         Task<SubjectEntity> AddSubjectAsync([FromBody] SubjectRegisterRequest request);
+        Task<List<SubjectEntity>> GetTop3EasySubject();
+
+        Task<List<SubjectEntity>> GetLast3HardSubject();
 
     }
 
@@ -63,6 +66,46 @@ namespace GPA_Calculator.Repositories
 
 
         }
+
+
+        
+        public async Task<List<SubjectEntity>> GetTop3EasySubject()
+        {
+            var result = _db.GradeDb.GroupBy(x => x.SubjectId).Select(x => new
+            {
+                SubjectName = x.Key,
+                AverageScore = x.Average(x =>(int) x.Score)
+            }).OrderByDescending(x => x.AverageScore).Take(3);
+
+            var Top3 = new List<SubjectEntity>();
+
+            foreach (var items in result)
+            {
+                Top3.Add(await _db.SubjectDb.FirstOrDefaultAsync(x => x.Id == items.SubjectName));
+            }
+            
+            return Top3;
+        }
+
+
+        public async Task<List<SubjectEntity>> GetLast3HardSubject()
+        {
+            var result = _db.GradeDb.GroupBy(x => x.SubjectId).Select(x => new
+            {
+                SubjectName = x.Key,
+                AverageScore = x.Average(x => (int)x.Score)
+            }).OrderByDescending(x => x.AverageScore).TakeLast(3);
+
+            var Top3 = new List<SubjectEntity>();
+
+            foreach (var items in result)
+            {
+                Top3.Add(await _db.SubjectDb.FirstOrDefaultAsync(x => x.Id == items.SubjectName));
+            }
+
+            return Top3;
+        }
+
 
 
     }

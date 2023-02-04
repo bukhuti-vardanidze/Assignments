@@ -64,29 +64,5 @@ namespace GPA_Calculator.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //[HttpGet("get-data")]
-        //public IActionResult GetData()
-        //{
-        //    var result = from t1 in _context.StudentDb.ToList()
-        //                 join t2 in _context.GradeDb on t1.Id equals t2.Id
-        //                 select new { t1.PersonalNumber, t2.Score };
-
-        //    return Ok(result);
-        //}
-
-
     }
 }
