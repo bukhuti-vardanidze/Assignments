@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseManagementSystem",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoAPP.Api", "..\ToDoAPP.Api\ToDoAPP.Api.csproj", "{F7DCA4D0-54EB-48EF-A9B3-05184D5C7CFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPA_Calculator", "..\GPA_Calculator\GPA_Calculator.csproj", "{79C5F44B-F6CD-4ABC-826B-9845322BADE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPA_Calculator", "..\GPA_Calculator\GPA_Calculator.csproj", "{79C5F44B-F6CD-4ABC-826B-9845322BADE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BonusManagementSystem_Api", "..\BonusManagementSystem_Api\BonusManagementSystem_Api.csproj", "{3821BD1C-18DA-4D63-88C2-F9D625366124}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{79C5F44B-F6CD-4ABC-826B-9845322BADE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79C5F44B-F6CD-4ABC-826B-9845322BADE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79C5F44B-F6CD-4ABC-826B-9845322BADE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3821BD1C-18DA-4D63-88C2-F9D625366124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3821BD1C-18DA-4D63-88C2-F9D625366124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3821BD1C-18DA-4D63-88C2-F9D625366124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3821BD1C-18DA-4D63-88C2-F9D625366124}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

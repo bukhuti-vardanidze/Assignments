@@ -1,6 +1,6 @@
-﻿namespace BonusManagementSystem_Api.Db.Entity
+﻿namespace BonusManagementSystem_Api.Models.Requests
 {
-    public class EmpoyeeEntity
+    public class EmployeeRequest
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
