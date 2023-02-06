@@ -1,4 +1,5 @@
-﻿using BonusManagementSystem_Api.Repositories;
+﻿using BonusManagementSystem_Api.Models.Requests;
+using BonusManagementSystem_Api.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace BonusManagementSystem_Api.Controllers
             var result = await _employeeRepository.GetAllEmployee();
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Employee Not Found");
             }
             return Ok(result);
         }
@@ -32,10 +33,18 @@ namespace BonusManagementSystem_Api.Controllers
             var result = await _employeeRepository.GetEmployeeById(EmployeeId);
             if(result == null)
             {
-                return NotFound();
+                return NotFound("Employee Not Found");
             }
             return Ok(result);
             
+        }
+
+        [HttpPost("Register-Employee")]
+        public async Task<IActionResult> RegisterEmployee(EmployeeRequest request)
+        {
+            var result = await _employeeRepository.RegisterEmployee(request);
+          
+            return Ok(result);
         }
 
 

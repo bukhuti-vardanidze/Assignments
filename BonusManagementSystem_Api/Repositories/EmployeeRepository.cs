@@ -1,5 +1,7 @@
 ﻿using BonusManagementSystem_Api.Db;
 using BonusManagementSystem_Api.Db.Entity;
+using BonusManagementSystem_Api.Models.Requests;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BonusManagementSystem_Api.Repositories
@@ -8,6 +10,7 @@ namespace BonusManagementSystem_Api.Repositories
     {
         Task<List<EmployeeEntity>> GetAllEmployee();
         Task<List<EmployeeEntity>> GetEmployeeById(int EmployeeId);
+        Task<EmployeeEntity> RegisterEmployee(EmployeeRequest request);
     }
 
 
@@ -50,6 +53,26 @@ namespace BonusManagementSystem_Api.Repositories
                 StartDate = DateTime.UtcNow
             }).ToListAsync();
             return result;
+
+        }
+
+        public async Task<EmployeeEntity> RegisterEmployee(EmployeeRequest request)
+        {
+            var result = new EmployeeEntity
+            {
+                Id = request.Id,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                PrivateNumber = request.PrivateNumber,
+                Recomedator = request.Recomedator,
+                Salary = request.Salary,
+                StartDate = DateTime.UtcNow
+            };
+         
+            _db.employees.Add(result);
+            await _db.SaveChangesAsync();
+            return result;
+           
 
         }
 
