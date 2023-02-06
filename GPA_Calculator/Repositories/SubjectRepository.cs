@@ -14,7 +14,7 @@ namespace GPA_Calculator.Repositories
         Task<List<SubjectEntity>> GetTop3EasySubject();
 
         Task<List<SubjectEntity>> GetLast3HardSubject();
-        Task<double> GetGPA(int studentId);
+        Task<double> GetGPA(double studentId);
 
     }
 
@@ -95,7 +95,7 @@ namespace GPA_Calculator.Repositories
             {
                 SubjectName = x.Key,
                 AverageScore = x.Average(x => (int)x.Score)
-            }).OrderByDescending(x => x.AverageScore).TakeLast(3);
+            }).OrderByDescending(x => x.AverageScore).Take(3);
 
             var Top3 = new List<SubjectEntity>();
 
@@ -108,7 +108,7 @@ namespace GPA_Calculator.Repositories
         }
 
 
-        public async Task<double> GetGPA(int studentId)
+        public async Task<double> GetGPA(double studentId)
         {
             var gpa = 0.0;
             var GP = 0.0;

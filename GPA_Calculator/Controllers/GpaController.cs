@@ -63,6 +63,28 @@ namespace GPA_Calculator.Controllers
         }
 
 
+        [HttpGet("GET-GPA")]
+        public async Task<IActionResult> CalculateGPA(double studentID)
+        {
+            var result = await _subjectRepository.GetGPA(studentID);
+            return Ok(result);
+        }
+
+
+        [HttpGet("get-top-3-subject-Avearge-score")]
+        public async Task<IActionResult> GetTop3SubjectAverageScore()
+        {
+            var result = await _subjectRepository.GetTop3EasySubject();
+            return Ok(result);
+        }
+
+
+        [HttpGet("get-last-3-subject-Average-score")]
+        public async Task<IActionResult> GetLast3SubjectAverageScore()
+        {
+            var result = await _subjectRepository.GetLast3HardSubject();
+            return Ok(result);
+        }
 
     }
 }

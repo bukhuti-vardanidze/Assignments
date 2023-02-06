@@ -67,7 +67,7 @@ namespace GPA_Calculator.Controllers
 
 
         [HttpGet("GET-GPA")]
-        public async Task<IActionResult> CalculateGPA(int studentID)
+        public async Task<IActionResult> CalculateGPA(double studentID)
         {
             var result = await _subjectRepository.GetGPA(studentID);
             return Ok(result);
