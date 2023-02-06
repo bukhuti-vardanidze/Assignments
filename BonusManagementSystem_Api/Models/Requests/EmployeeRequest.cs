@@ -7,7 +7,7 @@
         public string LastName { get; set; }
         public string PrivateNumber { get; set; }
         public double Salary { get; set; }
-        public string Recomedator { get; set; }
+        public int RecomedatorId { get; set; }
         public DateTime StartDate { get; set; }
     }
 }

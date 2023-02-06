@@ -32,7 +32,7 @@ namespace BonusManagementSystem_Api.Repositories
                 FirstName= x.FirstName,
                 LastName = x.LastName,
                 PrivateNumber= x.PrivateNumber,
-                Recomedator= x.Recomedator,
+                RecomedatorId= x.RecomedatorId,
                 Salary  = x.Salary,
                 StartDate= DateTime.UtcNow
             }).ToListAsync();
@@ -48,7 +48,7 @@ namespace BonusManagementSystem_Api.Repositories
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 PrivateNumber = x.PrivateNumber,
-                Recomedator = x.Recomedator,
+                RecomedatorId = x.RecomedatorId,
                 Salary = x.Salary,
                 StartDate = DateTime.UtcNow
             }).ToListAsync();
@@ -64,7 +64,7 @@ namespace BonusManagementSystem_Api.Repositories
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 PrivateNumber = request.PrivateNumber,
-                Recomedator = request.Recomedator,
+                RecomedatorId = request.RecomedatorId,
                 Salary = request.Salary,
                 StartDate = DateTime.UtcNow
             };
@@ -76,7 +76,7 @@ namespace BonusManagementSystem_Api.Repositories
 
         }
 
-
+        
 
     }
 

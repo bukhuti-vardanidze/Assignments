@@ -7,6 +7,8 @@ namespace BonusManagementSystem_Api.Db
     {
        
         public DbSet<EmployeeEntity> employees { get; set; }
+        public DbSet<BonusEntity> bonuses { get; set; }
+
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
