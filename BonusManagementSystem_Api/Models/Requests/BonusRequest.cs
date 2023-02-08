@@ -2,7 +2,7 @@
 {
     public class BonusRequest
     {
-        public int employeeId { get; set; }
+        public int EmployeeId { get; set; }
         public double BonusQuantity { get; set; }
 
     }
