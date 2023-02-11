@@ -1,4 +1,5 @@
-﻿using GPA_Calculator.Db;
+﻿using GPA_Calculator.Calculate_GPA;
+using GPA_Calculator.Db;
 using GPA_Calculator.Db.Entities;
 using GPA_Calculator.Models.Request;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace GPA_Calculator.Repositories
         Task<List<GradeRegisterRequest>> GetSingleGradeById(int gradeId);
         Task<GradeEntity> AddGrade([FromBody] GradeRegisterRequest request);
         Task<List<int>> GetStudentScoreById(int gradeId);
-
+        Task<List<StudentGrade>> GetStudnetGradeById(int StudentId);
     }
     public class GradeRepository : IGradeRepository
     {
@@ -78,6 +79,20 @@ namespace GPA_Calculator.Repositories
             return  await Task.FromResult(result);
            
            
+        }
+
+
+        public async Task<List<StudentGrade>> GetStudnetGradeById(int StudentId)
+        {
+            var result = await _db.GradeDb.Where(i => i.StudentId == StudentId).Select(x => new StudentGrade
+            {
+                StudentId = x.StudentId,
+               // Credits = x.SubjectEntity.Cred,
+                Score = (int)x.Score
+
+            }).ToListAsync();
+
+            return result;
         }
 
        

@@ -12,7 +12,6 @@ namespace BonusManagementSystem_Api.Repositories
         Task<List<BonusEntity>> GetBonusById(int BonusId);
         Task<BonusEntity> AddBonus(BonusRequest request);
 
-
     }
     public class BonusRepository : IBonusRepository
     {
