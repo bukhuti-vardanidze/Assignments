@@ -64,14 +64,14 @@ namespace GPA_Calculator.Controllers
         }
 
         [HttpGet("Calculate-GPA")]
-        public async Task<IActionResult> GPACalculatro(int studentID)
+        public async Task<IActionResult> GPACalculator(int studentID)
         {
             var grades = await _gradeRepository.GetStudnetGradeById(studentID);
             var calculator = new GPACalcutor();
             var GPA = calculator.Calculator(grades);
-            return Ok(grades);
+            return Ok(GPA);
         }
-
+        
 
 
         [HttpGet("get-top-3-subject-Avearge-score")]

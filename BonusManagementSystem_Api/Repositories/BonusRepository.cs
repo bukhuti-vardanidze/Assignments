@@ -10,7 +10,7 @@ namespace BonusManagementSystem_Api.Repositories
         Task SaveChange();
         Task<List<BonusEntity>> GetAllBonus();
         Task<List<BonusEntity>> GetBonusById(int BonusId);
-        Task<BonusEntity> AddBonus(BonusRequest request);
+        Task/*<BonusEntity>*/ AddBonus(BonusRequest request);
 
     }
     public class BonusRepository : IBonusRepository
@@ -39,9 +39,9 @@ namespace BonusManagementSystem_Api.Repositories
         }
 
 
-        public async Task<BonusEntity> AddBonus(BonusRequest request)
+        public async Task/*<BonusEntity>*/ AddBonus(BonusRequest request)
         {
-            var employee = _db.employees.FirstOrDefault(x=>x.Id ==request.EmployeeId);
+            var employee = _db.employees.FirstOrDefault(x=>x.Id == request.EmployeeId);
            
             var bonus_1 = new BonusEntity()
             {
@@ -49,10 +49,9 @@ namespace BonusManagementSystem_Api.Repositories
                 BonusQuantity = request.BonusQuantity,
                 BonusIssueTime = DateTime.Now
             };
-
-          var result = await  _db.bonuses.AddAsync(bonus_1);
-
-            employee.Bonus.Add(bonus_1);
+            
+            var result = await  _db.bonuses.AddAsync(bonus_1);
+             employee.Bonus.Add(bonus_1);
             _db.employees.Update(employee);
             
           if(employee.RecomedatorId != 0)
@@ -100,17 +99,17 @@ namespace BonusManagementSystem_Api.Repositories
                         _db.employees.Update(employee_4);
 
                     }
-
+                    
 
                 }
 
             }
 
-            return result.Entity;
+           // return result.Entity;
         }
 
        
-
+        
 
         public async Task SaveChange()
         {

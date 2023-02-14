@@ -40,8 +40,8 @@ namespace BonusManagementSystem_Api.Controllers
         [HttpPost("Add-Bonus")]
         public async Task<IActionResult> RegisterEmployee(BonusRequest request)
         {
-            var result = await _bonusRepository.AddBonus(request);
-
+            var result =  _bonusRepository.AddBonus(request);
+            
             return Ok(result);
         }
     }

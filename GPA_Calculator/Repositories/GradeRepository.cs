@@ -87,7 +87,7 @@ namespace GPA_Calculator.Repositories
             var result = await _db.GradeDb.Where(i => i.StudentId == StudentId).Select(x => new StudentGrade
             {
                 StudentId = x.StudentId,
-               // Credits = x.SubjectEntity.Cred,
+                Credits = x.SubjectEntity.Credits,
                 Score = (int)x.Score
 
             }).ToListAsync();
