@@ -1,4 +1,5 @@
-﻿using BonusManagementSystem_Api.Models.Requests;
+﻿using BonusManagementSystem_Api.Db.Entity;
+using BonusManagementSystem_Api.Models.Requests;
 using BonusManagementSystem_Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,12 +38,23 @@ namespace BonusManagementSystem_Api.Controllers
 
         }
 
-        [HttpPost("Add-Bonus")]
-        public async Task<IActionResult> RegisterEmployee(BonusRequest request)
+        //[HttpPost("Add-Bonus")]
+        //public async Task<IActionResult> RegisterEmployee(BonusRequest request)
+        //{
+        //    var result =  _bonusRepository.AddBonus(request);
+            
+        //    return Ok(result);
+        //}
+
+        [HttpPost("give-Bonus")]
+        public async Task<IActionResult> GivebonusEmpl( [FromBody] BonusEntity bonusEntity)
         {
-            var result =  _bonusRepository.AddBonus(request);
+            var result = _bonusRepository.giveBonus(bonusEntity.EmployeeEntity.Id, bonusEntity.BonusQuantity);
+            
             
             return Ok(result);
         }
+
+
     }
 }

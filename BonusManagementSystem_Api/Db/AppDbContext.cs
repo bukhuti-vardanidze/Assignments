@@ -1,4 +1,5 @@
-﻿using BonusManagementSystem_Api.Db.Entity;
+﻿using BonusManagementSystem_Api.Db.Configuration;
+using BonusManagementSystem_Api.Db.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BonusManagementSystem_Api.Db
@@ -18,7 +19,7 @@ namespace BonusManagementSystem_Api.Db
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
+            builder.ApplyConfiguration(new BonusConfiguration());
             base.OnModelCreating(builder);
         }
 

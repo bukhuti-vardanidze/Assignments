@@ -72,7 +72,6 @@ namespace BonusManagementSystem_Api.Repositories
             _db.employees.Add(result);
             await _db.SaveChangesAsync();
             return result;
-           
 
         }
 

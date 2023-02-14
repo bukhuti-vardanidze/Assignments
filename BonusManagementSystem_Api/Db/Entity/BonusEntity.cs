@@ -6,6 +6,6 @@
         public int recomendtorId { get; set; }
         public double BonusQuantity { get; set; }
         public DateTime BonusIssueTime { get; set; }
-       
+       public EmployeeEntity EmployeeEntity { get; set; }
     }
 }

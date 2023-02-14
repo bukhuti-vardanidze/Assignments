@@ -10,6 +10,6 @@
         public int RecomedatorId { get; set; }
         public DateTime StartDate { get; set; }
 
-        public List<BonusEntity> Bonus { get; set; }
+       // public BonusEntity BonusEntity { get; set; }
     }
 }
