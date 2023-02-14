@@ -5,16 +5,12 @@
 
         public double Calculator(List<StudentGrade> studentGrade)
         {
-            if(studentGrade.Count == 0) 
-            {
-              return 0.0;
-            }
             var SumCredits = studentGrade.Sum(g => g.Credits);
             var gpaCredits = 0.0;
-            foreach(var STgrade in studentGrade)
+            foreach(var grade in studentGrade)
             {
-                var GP = CalculeGp(STgrade.Score);
-                gpaCredits += GP * STgrade.Credits;
+                var GP = CalculeGp(grade.Score);
+                gpaCredits += GP * grade.Credits;
             }
 
             return gpaCredits/SumCredits;

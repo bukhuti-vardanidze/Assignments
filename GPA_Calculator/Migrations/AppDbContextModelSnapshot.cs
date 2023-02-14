@@ -29,8 +29,8 @@ namespace GPACalculator.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
@@ -40,7 +40,11 @@ namespace GPACalculator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GradeDb");
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("GPA_Calculator.Db.Entities.StudentEntity", b =>
@@ -69,7 +73,7 @@ namespace GPACalculator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StudentDb");
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("GPA_Calculator.Db.Entities.SubjectEntity", b =>
@@ -89,7 +93,26 @@ namespace GPACalculator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectDb");
+                    b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("GPA_Calculator.Db.Entities.GradeEntity", b =>
+                {
+                    b.HasOne("GPA_Calculator.Db.Entities.StudentEntity", "StudentEntity")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GPA_Calculator.Db.Entities.SubjectEntity", "SubjectEntity")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StudentEntity");
+
+                    b.Navigation("SubjectEntity");
                 });
 #pragma warning restore 612, 618
         }

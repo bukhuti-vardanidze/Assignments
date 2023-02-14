@@ -26,7 +26,7 @@ namespace GPA_Calculator.Repositories
 
         public async Task<List<StudentRegistrationRequest>> GetAllStudentsAsync()
         {
-            var students = await _db.StudentDb.Select(x => new StudentRegistrationRequest()
+            var students = await _db.Students.Select(x => new StudentRegistrationRequest()
             {
                 Id= x.Id,
                 FirstName= x.FirstName,
@@ -41,7 +41,7 @@ namespace GPA_Calculator.Repositories
 
         public async Task<List<StudentRegistrationRequest>> GetSingleStudentAsync(int StudentId)
         {
-            var student = await _db.StudentDb.Where(x => x.Id == StudentId).Select(x => new StudentRegistrationRequest()
+            var student = await _db.Students.Where(x => x.Id == StudentId).Select(x => new StudentRegistrationRequest()
             {
                 Id= x.Id,
                 FirstName= x.FirstName,
@@ -66,13 +66,13 @@ namespace GPA_Calculator.Repositories
                 PersonalNumber = studentRegistration.PersonalNumber,
                 CourseName = studentRegistration.CourseName
             };
-            _db.StudentDb.Add(student);
+            _db.Students.Add(student);
             await _db.SaveChangesAsync();
 
             return student;
             
         }
-
+        
     }
 
     

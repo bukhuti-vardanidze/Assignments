@@ -1,5 +1,6 @@
 ﻿using GPA_Calculator.Calculate_GPA;
 using GPA_Calculator.Db;
+using GPA_Calculator.Db.Entities;
 using GPA_Calculator.Models.Request;
 using GPA_Calculator.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,9 @@ namespace GPA_Calculator.Controllers
            
             
         }
+
+
+       
 
         [HttpPost("student-register")]
         public async Task<IActionResult> StudentRegister([FromBody] StudentRegistrationRequest request)
@@ -71,7 +75,9 @@ namespace GPA_Calculator.Controllers
             var GPA = calculator.Calculator(grades);
             return Ok(GPA);
         }
-        
+
+
+       
 
 
         [HttpGet("get-top-3-subject-Avearge-score")]
@@ -85,11 +91,13 @@ namespace GPA_Calculator.Controllers
         [HttpGet("get-last-3-subject-Average-score")]
         public async Task<IActionResult> GetLast3SubjectAverageScore()
         {
-            var result = await _subjectRepository.GetLast3HardSubject();
+            var result =await  _subjectRepository.GetLast3HardSubject();
             return Ok(result);
         }
 
-       
+        
+
+
 
 
     }

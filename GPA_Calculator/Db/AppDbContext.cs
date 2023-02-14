@@ -8,9 +8,9 @@ namespace GPA_Calculator.Db
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<StudentEntity> StudentDb { get; set; }
-        public DbSet<SubjectEntity> SubjectDb { get; set; }
-        public DbSet<GradeEntity> GradeDb { get; set; }
+        public DbSet<StudentEntity> Students { get; set; }
+        public DbSet<SubjectEntity> Subjects { get; set; }
+        public DbSet<GradeEntity> Grades { get; set; }
         
 
 

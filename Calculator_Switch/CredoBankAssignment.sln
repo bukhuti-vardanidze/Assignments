@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoAPP.Api", "..\ToDoAPP.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPA_Calculator", "..\GPA_Calculator\GPA_Calculator.csproj", "{79C5F44B-F6CD-4ABC-826B-9845322BADE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BonusManagementSystem_Api", "..\BonusManagementSystem_Api\BonusManagementSystem_Api.csproj", "{3821BD1C-18DA-4D63-88C2-F9D625366124}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BonusManagementSystem_Api", "..\BonusManagementSystem_Api\BonusManagementSystem_Api.csproj", "{3821BD1C-18DA-4D63-88C2-F9D625366124}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,7 +15,7 @@ namespace GPA_Calculator.Repositories
         Task<List<SubjectEntity>> GetTop3EasySubject();
 
         Task<List<SubjectEntity>> GetLast3HardSubject();
-        Task<double> GetGPA(int studentId);
+        
 
     }
 
@@ -32,7 +32,7 @@ namespace GPA_Calculator.Repositories
 
         public async Task<List<SubjectRegisterRequest>> GetAllSubjectAsync()
         {
-            var subjects = await _db.SubjectDb.Select(x=> new SubjectRegisterRequest()
+            var subjects = await _db.Subjects.Select(x=> new SubjectRegisterRequest()
             {
                Id = x.Id,
                SubjectName= x.SubjectName,
@@ -44,7 +44,7 @@ namespace GPA_Calculator.Repositories
 
         public async Task<List<SubjectRegisterRequest>> GetSingleSubjectAsync(int subjectId)
         {
-            var subjects = await _db.SubjectDb.Where(x=> x.Id == subjectId).Select(x => new SubjectRegisterRequest()
+            var subjects = await _db.Subjects.Where(x=> x.Id == subjectId).Select(x => new SubjectRegisterRequest()
             {
                 Id = x.Id,
                 SubjectName = x.SubjectName,
@@ -62,7 +62,7 @@ namespace GPA_Calculator.Repositories
                 SubjectName = request.SubjectName,
                 Credits = request.Credits
             };
-            _db.SubjectDb.Add(subject);
+            _db.Subjects.Add(subject);
             await _db.SaveChangesAsync();
             return subject;
 
@@ -73,26 +73,31 @@ namespace GPA_Calculator.Repositories
         
         public async Task<List<SubjectEntity>> GetTop3EasySubject()
         {
-            var result = _db.GradeDb.GroupBy(x => x.SubjectId).Select(x => new
+            var result = _db.Grades.GroupBy(x => x.SubjectId).Select(x => new
             {
                 SubjectName = x.Key,
                 AverageScore = x.Average(x =>(int) x.Score)
-            }).OrderByDescending(x => x.AverageScore).Take(3);
+            }).OrderBy(x => x.AverageScore).Take(3);
 
             var Top3 = new List<SubjectEntity>();
 
             foreach (var items in result)
             {
-                Top3.Add(await _db.SubjectDb.FirstOrDefaultAsync(x => x.Id == items.SubjectName));
+                Top3.Add(await _db.Subjects.FirstOrDefaultAsync(x => x.Id == items.SubjectName));
             }
-            
+
             return Top3.ToList();
+
+           
         }
+
+     
 
 
         public async Task<List<SubjectEntity>> GetLast3HardSubject()
         {
-            var result = _db.GradeDb.GroupBy(x => x.SubjectId).Select(x => new
+                       
+            var result = _db.Grades.GroupBy(x => x.SubjectId).Select(x => new
             {
                 SubjectName = x.Key,
                 AverageScore = x.Average(x => (int)x.Score)
@@ -102,40 +107,15 @@ namespace GPA_Calculator.Repositories
 
             foreach (var items in result)
             {
-                Top3.Add(await _db.SubjectDb.FirstOrDefaultAsync(x => x.Id == items.SubjectName));
+                
+                Top3.Add(await _db.Subjects.FirstOrDefaultAsync(x => x.Id == items.SubjectName));
             }
 
             return Top3.ToList();
         }
 
 
-        public async Task<double> GetGPA(int studentId)
-        {
-            var gpa = 0.0;
-            var GP = 0.0;
-            var studentGrade = _db.GradeDb.Where(x=>x.StudentId== studentId);
-
-            foreach (var grades in studentGrade)
-            {
-                var subject = await _db.SubjectDb.FindAsync(grades.SubjectId);
-                 GP = CalculeGP(grades.Score);
-                gpa += GP * subject.Credits; 
-            }
-
-            return gpa / GP;
         
-        }
-
-
-        private double CalculeGP(double score)
-        {
-            if (score < 50) return 0;
-            if (score <= 60) return 0.5;
-            if (score <= 70) return 1.0;
-            if (score <= 80) return 2.0;
-            if (score <= 90) return 3.0;
-            return 4.0;
-        }
 
 
 
