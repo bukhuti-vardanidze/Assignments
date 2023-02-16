@@ -11,6 +11,7 @@ namespace BonusManagementSystem_Api.Repositories
         Task<List<EmployeeEntity>> GetAllEmployee();
         Task<List<EmployeeEntity>> GetEmployeeById(int EmployeeId);
         Task<EmployeeEntity> RegisterEmployee(EmployeeRequest request);
+        Task<EmployeeEntity> UpdateEmployee(EmployeeEntity employeeEntity);
     }
 
 
@@ -73,6 +74,13 @@ namespace BonusManagementSystem_Api.Repositories
             await _db.SaveChangesAsync();
             return result;
 
+        }
+
+        public async Task<EmployeeEntity> UpdateEmployee(EmployeeEntity employeeEntity)
+        {
+            _db.employees.Update(employeeEntity);
+            await _db.SaveChangesAsync();
+            return employeeEntity;
         }
 
        

@@ -1,27 +1,32 @@
 ﻿using BonusManagementSystem_Api.Db;
 using BonusManagementSystem_Api.Db.Entity;
 using BonusManagementSystem_Api.Models.Requests;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace BonusManagementSystem_Api.Repositories
 {  
     public interface IBonusRepository
     {
-        Task SaveChange();
+        Task SaveChangeAsync();
         Task<List<BonusEntity>> GetAllBonus();
         Task<List<BonusEntity>> GetBonusById(int BonusId);
-        //Task/*<BonusEntity>*/ AddBonus(BonusRequest request);
-        Task giveBonus(int employeeId, double bonusAmount);
+        Task<BonusEntity> AddBonus(BonusRequest request);
+
+
 
     }
     public class BonusRepository : IBonusRepository
     {
         private readonly AppDbContext _db;
+        
 
         public BonusRepository(AppDbContext db)
         {
             _db = db;
+            
         }
 
 
@@ -29,6 +34,7 @@ namespace BonusManagementSystem_Api.Repositories
         {
             var result = await _db.bonuses.ToListAsync();
             return result;
+            
             
         }
 
@@ -41,110 +47,69 @@ namespace BonusManagementSystem_Api.Repositories
         }
 
 
-        //public async Task/*<BonusEntity>*/ AddBonus(BonusRequest request)
-        //{
-        //    var employee = _db.employees.FirstOrDefault(x=>x.Id == request.EmployeeId);
-           
-        //    var bonus_1 = new BonusEntity()
-        //    {
-        //        Id = request.EmployeeId,
-        //        BonusQuantity = request.BonusQuantity,
-        //        BonusIssueTime = DateTime.Now
-        //    };
-            
-        //    var result = await  _db.bonuses.AddAsync(bonus_1);
-        //     employee.BonusEntity.Add(bonus_1);
-        //    _db.employees.Update(employee);
-            
-        //  if(employee.RecomedatorId != 0)
-        //    {
-        //        var employee_2 = await _db.employees.FirstOrDefaultAsync(x=>x.Id==employee.RecomedatorId);
-        //        var bonus_2 = new BonusEntity()
-        //        {
-        //            Id = request.EmployeeId,
-        //            BonusQuantity = request.BonusQuantity / 2,
-        //            BonusIssueTime = DateTime.Now
-        //        };
-
-        //        await _db.bonuses.AddAsync(bonus_2);
-        //        employee_2.BonusEntity.Add(bonus_2);
-        //        _db.employees.Update(employee_2);
-
-
-        //        if (employee_2.RecomedatorId != 0)
-        //        {
-        //            var employee_3 = await _db.employees.FirstOrDefaultAsync(x => x.Id == employee_2.RecomedatorId);
-        //            var bonus_3 = new BonusEntity()
-        //            {
-        //                Id = request.EmployeeId,
-        //                BonusQuantity = request.BonusQuantity / 4,
-        //                BonusIssueTime = DateTime.Now
-        //            };
-                    
-        //            await _db.bonuses.AddAsync(bonus_3);
-        //            employee_3.BonusEntity.Add(bonus_3);
-        //            _db.employees.Update(employee_3);
-
-
-        //            if (employee_3.RecomedatorId != 0)
-        //            {
-        //                var employee_4 = await _db.employees.FirstOrDefaultAsync(x => x.Id == employee_3.RecomedatorId);
-        //                var bonus_4 = new BonusEntity()
-        //                {
-        //                    Id = request.EmployeeId,
-        //                    BonusQuantity = request.BonusQuantity * 0,
-        //                    BonusIssueTime = DateTime.Now
-        //                };
-
-        //                await _db.bonuses.AddAsync(bonus_4);
-        //                employee_4.BonusEntity.Add(bonus_4);
-        //                _db.employees.Update(employee_4);
-
-        //            }
-                    
-
-        //        }
-
-        //    }
-
-        //   // return result.Entity;
-        //}
-        
-
-
-        public async Task giveBonus(int employeeId, double bonusAmount)
+        public async Task<BonusEntity> AddBonus(BonusRequest request)
         {
-            var employee = await _db.employees.FindAsync(employeeId);
-          
-            double employeeBonus = employee.Salary * bonusAmount;
-            employee.Salary += employeeBonus;
+            var employee = _db.employees.FirstOrDefault(x => x.Id == request.EmployeeId);
 
-            if(employee.RecomedatorId != null)
+            var bonus_1 = new BonusEntity()
             {
-                var recommender =await _db.employees.FindAsync(employee.RecomedatorId);
-                if(recommender!= null)
+                Id = request.EmployeeId,
+                BonusQuantity = employee.Salary / 2,
+                BonusIssueTime = DateTime.Now
+            };
+
+            var result = await _db.bonuses.AddAsync(bonus_1);
+            
+
+            if (employee.RecomedatorId != 0)
+            {
+                var employee_2 = await _db.employees.FirstOrDefaultAsync(x => x.Id == employee.RecomedatorId);
+                var bonus_2 = new BonusEntity()
                 {
-                    double recommenderBonus = employeeBonus / 2;
-                    recommender.Salary += recommenderBonus;
-                    if(recommender.RecomedatorId != null)
+                    Id = request.EmployeeId,
+                    BonusQuantity = employee_2.Salary / 4,
+                    BonusIssueTime = DateTime.Now
+                };
+
+                await _db.bonuses.AddAsync(bonus_2);
+               
+
+
+                if (employee_2.RecomedatorId != 0)
+                {
+                    var employee_3 = await _db.employees.FirstOrDefaultAsync(x => x.Id == employee_2.RecomedatorId);
+                    var bonus_3 = new BonusEntity()
                     {
-                        var recommender2 = await _db.employees.FindAsync(recommender.RecomedatorId);
-                        if(recommender2 != null)
+                        Id = request.EmployeeId,
+                        BonusQuantity = employee_3.Salary / 6,
+                        BonusIssueTime = DateTime.Now
+                    };
+
+                    await _db.bonuses.AddAsync(bonus_3);
+                  
+
+
+                    if (employee_3.RecomedatorId != 0)
+                    {
+                        var employee_4 = await _db.employees.FirstOrDefaultAsync(x => x.Id == employee_3.RecomedatorId);
+                        var bonus_4 = new BonusEntity()
                         {
-                            double recomender2Bonus = recommenderBonus/ 2; 
-                            recommender2.Salary += recomender2Bonus;
-                        }
+                            Id = request.EmployeeId,
+                            BonusQuantity = employee_4.Salary *0,
+                            BonusIssueTime = DateTime.Now
+                        };
+
+                        await _db.bonuses.AddAsync(bonus_4);                                          
+
                     }
                 }
             }
-            
 
+            return result.Entity;
         }
-        
 
 
-
-        public async Task SaveChange()
+        public async Task SaveChangeAsync()
         {
             await _db.SaveChangesAsync();
         }

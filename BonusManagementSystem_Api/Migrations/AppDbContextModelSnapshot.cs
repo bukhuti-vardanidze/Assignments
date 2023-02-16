@@ -25,10 +25,7 @@ namespace BonusManagementSystemApi.Migrations
             modelBuilder.Entity("BonusManagementSystem_Api.Db.Entity.BonusEntity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("BonusIssueTime")
                         .HasColumnType("datetime2");
@@ -36,15 +33,10 @@ namespace BonusManagementSystemApi.Migrations
                     b.Property<double>("BonusQuantity")
                         .HasColumnType("float");
 
-                    b.Property<int?>("EmployeeEntityId")
-                        .HasColumnType("int");
-
                     b.Property<int>("recomendtorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeEntityId");
 
                     b.ToTable("bonuses");
                 });
@@ -85,14 +77,13 @@ namespace BonusManagementSystemApi.Migrations
 
             modelBuilder.Entity("BonusManagementSystem_Api.Db.Entity.BonusEntity", b =>
                 {
-                    b.HasOne("BonusManagementSystem_Api.Db.Entity.EmployeeEntity", null)
-                        .WithMany("Bonus")
-                        .HasForeignKey("EmployeeEntityId");
-                });
+                    b.HasOne("BonusManagementSystem_Api.Db.Entity.EmployeeEntity", "EmployeeEntity")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("BonusManagementSystem_Api.Db.Entity.EmployeeEntity", b =>
-                {
-                    b.Navigation("Bonus");
+                    b.Navigation("EmployeeEntity");
                 });
 #pragma warning restore 612, 618
         }

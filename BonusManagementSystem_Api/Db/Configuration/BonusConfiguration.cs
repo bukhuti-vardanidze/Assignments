@@ -8,10 +8,10 @@ namespace BonusManagementSystem_Api.Db.Configuration
     {
         public void Configure(EntityTypeBuilder<BonusEntity> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.EmployeeEntity).WithMany().HasForeignKey(x => x.recomendtorId);
+            
+           builder.HasOne(x => x.EmployeeEntity).WithMany(x => x.BonusEntity);
            
-
+           
         }
 
     }

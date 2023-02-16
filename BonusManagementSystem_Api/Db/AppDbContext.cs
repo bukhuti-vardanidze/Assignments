@@ -21,6 +21,7 @@ namespace BonusManagementSystem_Api.Db
         {
             builder.ApplyConfiguration(new BonusConfiguration());
             base.OnModelCreating(builder);
+            
         }
 
     }

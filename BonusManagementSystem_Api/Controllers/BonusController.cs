@@ -10,9 +10,12 @@ namespace BonusManagementSystem_Api.Controllers
     public class BonusController :ControllerBase
     {
         private readonly IBonusRepository _bonusRepository;
+       
+
         public BonusController(IBonusRepository bonusRepository)
         {
             _bonusRepository = bonusRepository;
+           
         }
 
         [HttpGet("get-All-Bonus")]
@@ -38,23 +41,13 @@ namespace BonusManagementSystem_Api.Controllers
 
         }
 
-        //[HttpPost("Add-Bonus")]
-        //public async Task<IActionResult> RegisterEmployee(BonusRequest request)
-        //{
-        //    var result =  _bonusRepository.AddBonus(request);
-            
-        //    return Ok(result);
-        //}
-
-        [HttpPost("give-Bonus")]
-        public async Task<IActionResult> GivebonusEmpl( [FromBody] BonusEntity bonusEntity)
+        [HttpPost("Add-Bonus")]
+        public async Task<IActionResult> AddBonus(BonusRequest request)
         {
-            var result = _bonusRepository.giveBonus(bonusEntity.EmployeeEntity.Id, bonusEntity.BonusQuantity);
-            
-            
+            var result = _bonusRepository.AddBonus(request);
             return Ok(result);
+            
         }
-
 
     }
 }

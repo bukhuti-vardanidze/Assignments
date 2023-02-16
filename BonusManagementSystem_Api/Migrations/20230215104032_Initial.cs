@@ -33,27 +33,21 @@ namespace BonusManagementSystemApi.Migrations
                 name: "bonuses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     recomendtorId = table.Column<int>(type: "int", nullable: false),
                     BonusQuantity = table.Column<double>(type: "float", nullable: false),
-                    BonusIssueTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeEntityId = table.Column<int>(type: "int", nullable: true)
+                    BonusIssueTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_bonuses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_bonuses_employees_EmployeeEntityId",
-                        column: x => x.EmployeeEntityId,
+                        name: "FK_bonuses_employees_Id",
+                        column: x => x.Id,
                         principalTable: "employees",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_bonuses_EmployeeEntityId",
-                table: "bonuses",
-                column: "EmployeeEntityId");
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using BonusManagementSystem_Api.Models.Requests;
+﻿using BonusManagementSystem_Api.Db.Entity;
+using BonusManagementSystem_Api.Models.Requests;
 using BonusManagementSystem_Api.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,14 @@ namespace BonusManagementSystem_Api.Controllers
             return Ok(result);
         }
 
+
+        [HttpPost("Update-Employee")]
+        public async Task<IActionResult> UpdateEmployee(EmployeeEntity entity)
+        {
+            var result = await _employeeRepository.UpdateEmployee(entity);
+            
+            return Ok(result);
+        }
 
     }
 }
