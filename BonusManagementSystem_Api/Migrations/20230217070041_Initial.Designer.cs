@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BonusManagementSystemApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230215104032_Initial")]
+    [Migration("20230217070041_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,7 +28,10 @@ namespace BonusManagementSystemApi.Migrations
             modelBuilder.Entity("BonusManagementSystem_Api.Db.Entity.BonusEntity", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("BonusIssueTime")
                         .HasColumnType("datetime2");
@@ -36,10 +39,15 @@ namespace BonusManagementSystemApi.Migrations
                     b.Property<double>("BonusQuantity")
                         .HasColumnType("float");
 
-                    b.Property<int>("recomendtorId")
+                    b.Property<int>("EmployeeEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("employeeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeEntityId");
 
                     b.ToTable("bonuses");
                 });
@@ -81,12 +89,17 @@ namespace BonusManagementSystemApi.Migrations
             modelBuilder.Entity("BonusManagementSystem_Api.Db.Entity.BonusEntity", b =>
                 {
                     b.HasOne("BonusManagementSystem_Api.Db.Entity.EmployeeEntity", "EmployeeEntity")
-                        .WithMany()
-                        .HasForeignKey("Id")
+                        .WithMany("BonusEntity")
+                        .HasForeignKey("EmployeeEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("EmployeeEntity");
+                });
+
+            modelBuilder.Entity("BonusManagementSystem_Api.Db.Entity.EmployeeEntity", b =>
+                {
+                    b.Navigation("BonusEntity");
                 });
 #pragma warning restore 612, 618
         }
