@@ -13,6 +13,7 @@ options.UseSqlServer(connection));
 
 builder.Services.AddTransient<IEmployeeRepository,EmployeeRepository>();
 builder.Services.AddTransient<IBonusRepository,BonusRepository>();
+builder.Services.AddTransient<IStatisticRepository, StatisticRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

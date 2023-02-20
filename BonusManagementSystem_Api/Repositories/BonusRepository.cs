@@ -14,7 +14,6 @@ namespace BonusManagementSystem_Api.Repositories
         Task<List<BonusEntity>> GetAllBonus();
         Task<List<BonusEntity>> GetBonusById(int BonusId);
         Task<BonusEntity> AddBonus(int EmployeeId, double bonus);
-        Task<int> BonusCountInSomePeriodAsync(DateTime startDate, DateTime endDate);
         Task SaveChangeAsync();
 
     }
@@ -52,7 +51,7 @@ namespace BonusManagementSystem_Api.Repositories
         {
             var employee = _db.Employees.FirstOrDefault(x => x.Id == EmployeeId);
 
-            var calculate_bonus_1 = bonus;
+            var calculate_bonus_1 = bonus/2;
             var calculate_bonus_2 = calculate_bonus_1 / 2;
             var calculate_bonus_3 = calculate_bonus_2 / 2;
 
@@ -100,15 +99,6 @@ namespace BonusManagementSystem_Api.Repositories
             
         }
 
-
-
-        public async Task<int> BonusCountInSomePeriodAsync(DateTime startDate, DateTime endDate)
-        {
-            return await _db.Bonuses
-                .Where(x => x.BonusIssueTime >= startDate && x.BonusIssueTime <= endDate)
-                .CountAsync();
-        }
-        
 
 
         public async Task SaveChangeAsync()

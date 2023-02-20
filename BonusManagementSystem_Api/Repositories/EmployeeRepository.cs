@@ -12,7 +12,6 @@ namespace BonusManagementSystem_Api.Repositories
         Task<List<EmployeeEntity>> GetEmployeeById(int EmployeeId);
         Task<EmployeeEntity> RegisterEmployee(EmployeeRequest request);
         Task<EmployeeEntity> UpdateEmployee(EmployeeRequest request);
-        
     }
 
 
@@ -94,6 +93,9 @@ namespace BonusManagementSystem_Api.Repositories
             return result;
 
         }
+
+
+      
 
     }
 
