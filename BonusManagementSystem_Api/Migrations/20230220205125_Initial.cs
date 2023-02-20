@@ -12,7 +12,7 @@ namespace BonusManagementSystemApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "employees",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -26,45 +26,44 @@ namespace BonusManagementSystemApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_employees", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "bonuses",
+                name: "Bonuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    employeeId = table.Column<int>(type: "int", nullable: false),
                     BonusQuantity = table.Column<double>(type: "float", nullable: false),
                     BonusIssueTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeEntityId = table.Column<int>(type: "int", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_bonuses", x => x.Id);
+                    table.PrimaryKey("PK_Bonuses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_bonuses_employees_EmployeeEntityId",
-                        column: x => x.EmployeeEntityId,
-                        principalTable: "employees",
+                        name: "FK_Bonuses_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_bonuses_EmployeeEntityId",
-                table: "bonuses",
-                column: "EmployeeEntityId");
+                name: "IX_Bonuses_EmployeeId",
+                table: "Bonuses",
+                column: "EmployeeId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "bonuses");
+                name: "Bonuses");
 
             migrationBuilder.DropTable(
-                name: "employees");
+                name: "Employees");
         }
     }
 }

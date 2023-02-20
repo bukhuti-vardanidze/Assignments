@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BonusManagementSystemApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230217070041_Initial")]
+    [Migration("20230220205125_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -39,17 +39,14 @@ namespace BonusManagementSystemApi.Migrations
                     b.Property<double>("BonusQuantity")
                         .HasColumnType("float");
 
-                    b.Property<int>("EmployeeEntityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("employeeId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeEntityId");
+                    b.HasIndex("EmployeeId");
 
-                    b.ToTable("bonuses");
+                    b.ToTable("Bonuses");
                 });
 
             modelBuilder.Entity("BonusManagementSystem_Api.Db.Entity.EmployeeEntity", b =>
@@ -83,14 +80,14 @@ namespace BonusManagementSystemApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("employees");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("BonusManagementSystem_Api.Db.Entity.BonusEntity", b =>
                 {
                     b.HasOne("BonusManagementSystem_Api.Db.Entity.EmployeeEntity", "EmployeeEntity")
                         .WithMany("BonusEntity")
-                        .HasForeignKey("EmployeeEntityId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

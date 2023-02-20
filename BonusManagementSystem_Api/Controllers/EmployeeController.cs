@@ -50,12 +50,14 @@ namespace BonusManagementSystem_Api.Controllers
 
 
         [HttpPost("Update-Employee")]
-        public async Task<IActionResult> UpdateEmployee(EmployeeEntity entity)
+        public async Task<IActionResult> UpdateEmployee(EmployeeRequest request)
         {
-            var result = await _employeeRepository.UpdateEmployee(entity);
+            var result = await _employeeRepository.UpdateEmployee(request);
             
             return Ok(result);
         }
+
+       
 
     }
 }

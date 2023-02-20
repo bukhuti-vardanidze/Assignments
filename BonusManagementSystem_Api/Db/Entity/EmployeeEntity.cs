@@ -1,7 +1,10 @@
-﻿namespace BonusManagementSystem_Api.Db.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BonusManagementSystem_Api.Db.Entity
 {
     public class EmployeeEntity
     {
+        
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

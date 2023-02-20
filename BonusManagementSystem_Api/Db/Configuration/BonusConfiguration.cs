@@ -9,9 +9,8 @@ namespace BonusManagementSystem_Api.Db.Configuration
         public void Configure(EntityTypeBuilder<BonusEntity> builder)
         {
             
-           builder.HasOne(x => x.EmployeeEntity).WithMany(x => x.BonusEntity);
-           
-           
+           builder.HasOne(x => x.EmployeeEntity).WithMany(x=>x.BonusEntity).HasForeignKey(x=>x.EmployeeId);
+            
         }
 
     }

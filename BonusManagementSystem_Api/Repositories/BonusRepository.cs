@@ -10,12 +10,12 @@ namespace BonusManagementSystem_Api.Repositories
 {  
     public interface IBonusRepository
     {
-        Task SaveChangeAsync();
+     
         Task<List<BonusEntity>> GetAllBonus();
         Task<List<BonusEntity>> GetBonusById(int BonusId);
-        Task<BonusEntity> AddBonus(BonusRequest request);
-
-
+        Task<BonusEntity> AddBonus(int EmployeeId, double bonus);
+        Task<int> BonusCountInSomePeriodAsync(DateTime startDate, DateTime endDate);
+        Task SaveChangeAsync();
 
     }
     public class BonusRepository : IBonusRepository
@@ -32,7 +32,7 @@ namespace BonusManagementSystem_Api.Repositories
 
         public async Task<List<BonusEntity>> GetAllBonus()
         {
-            var result = await _db.bonuses.ToListAsync();
+            var result = await _db.Bonuses.ToListAsync();
             return result;
             
             
@@ -41,72 +41,74 @@ namespace BonusManagementSystem_Api.Repositories
 
         public async Task<List<BonusEntity>> GetBonusById(int BonusId)
         {
-            var result = await _db.bonuses.Where(x=>x.Id == BonusId).ToListAsync();
+            var result = await _db.Bonuses.Where(x=>x.Id == BonusId).ToListAsync();
             return result;
 
         }
 
 
-        public async Task<BonusEntity> AddBonus(BonusRequest request)
+        
+        public async Task<BonusEntity> AddBonus(int EmployeeId, double bonus)
         {
-            var employee = _db.employees.FirstOrDefault(x => x.Id == request.EmployeeId);
+            var employee = _db.Employees.FirstOrDefault(x => x.Id == EmployeeId);
+
+            var calculate_bonus_1 = bonus;
+            var calculate_bonus_2 = calculate_bonus_1 / 2;
+            var calculate_bonus_3 = calculate_bonus_2 / 2;
+
 
             var bonus_1 = new BonusEntity()
             {
-                Id = request.EmployeeId,
-                BonusQuantity = employee.Salary / 2,
+                Id = EmployeeId,
+                BonusQuantity = calculate_bonus_1,
                 BonusIssueTime = DateTime.Now
             };
 
-            var result = await _db.bonuses.AddAsync(bonus_1);
-            
+            var result = await _db.Bonuses.AddAsync(bonus_1);
+           
 
             if (employee.RecomedatorId != 0)
             {
-                var employee_2 = await _db.employees.FirstOrDefaultAsync(x => x.Id == employee.RecomedatorId);
+                var employee_2 = await _db.Employees.FirstOrDefaultAsync(x => x.Id == employee.RecomedatorId);
                 var bonus_2 = new BonusEntity()
                 {
-                    Id = request.EmployeeId,
-                    BonusQuantity = employee_2.Salary / 4,
-                    BonusIssueTime = DateTime.Now
+                    Id =employee_2.Id,
+                    BonusQuantity = calculate_bonus_2,
+                    BonusIssueTime = DateTime.UtcNow
                 };
 
-                await _db.bonuses.AddAsync(bonus_2);
-               
-
+                await _db.Bonuses.AddAsync(bonus_2);
+              
 
                 if (employee_2.RecomedatorId != 0)
                 {
-                    var employee_3 = await _db.employees.FirstOrDefaultAsync(x => x.Id == employee_2.RecomedatorId);
+                    var employee_3 = await _db.Employees.FirstOrDefaultAsync(x => x.Id == employee_2.RecomedatorId);
                     var bonus_3 = new BonusEntity()
                     {
-                        Id = request.EmployeeId,
-                        BonusQuantity = employee_3.Salary / 6,
-                        BonusIssueTime = DateTime.Now
+                        Id = employee_3.Id,
+                        BonusQuantity = calculate_bonus_3,
+                        BonusIssueTime = DateTime.UtcNow
                     };
 
-                    await _db.bonuses.AddAsync(bonus_3);
-                  
+                    await _db.Bonuses.AddAsync(bonus_3);
+                   
 
-
-                    if (employee_3.RecomedatorId != 0)
-                    {
-                        var employee_4 = await _db.employees.FirstOrDefaultAsync(x => x.Id == employee_3.RecomedatorId);
-                        var bonus_4 = new BonusEntity()
-                        {
-                            Id = request.EmployeeId,
-                            BonusQuantity = employee_4.Salary *0,
-                            BonusIssueTime = DateTime.Now
-                        };
-
-                        await _db.bonuses.AddAsync(bonus_4);                                          
-
-                    }
                 }
             }
 
             return result.Entity;
+            
         }
+
+
+
+        public async Task<int> BonusCountInSomePeriodAsync(DateTime startDate, DateTime endDate)
+        {
+            return await _db.Bonuses
+                .Where(x => x.BonusIssueTime >= startDate && x.BonusIssueTime <= endDate)
+                .CountAsync();
+        }
+        
 
 
         public async Task SaveChangeAsync()
@@ -115,6 +117,4 @@ namespace BonusManagementSystem_Api.Repositories
         }
 
     }
-
-  
 }

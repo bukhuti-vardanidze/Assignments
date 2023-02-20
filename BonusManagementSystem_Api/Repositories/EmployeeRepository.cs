@@ -11,7 +11,8 @@ namespace BonusManagementSystem_Api.Repositories
         Task<List<EmployeeEntity>> GetAllEmployee();
         Task<List<EmployeeEntity>> GetEmployeeById(int EmployeeId);
         Task<EmployeeEntity> RegisterEmployee(EmployeeRequest request);
-        Task<EmployeeEntity> UpdateEmployee(EmployeeEntity employeeEntity);
+        Task<EmployeeEntity> UpdateEmployee(EmployeeRequest request);
+        
     }
 
 
@@ -27,7 +28,7 @@ namespace BonusManagementSystem_Api.Repositories
 
         public async Task<List<EmployeeEntity>> GetAllEmployee()
         {
-            var result =await _db.employees.Select( x => new EmployeeEntity()
+            var result =await _db.Employees.Select( x => new EmployeeEntity()
             {
                 Id= x.Id,
                 FirstName= x.FirstName,
@@ -43,7 +44,7 @@ namespace BonusManagementSystem_Api.Repositories
 
         public async Task<List<EmployeeEntity>> GetEmployeeById(int EmployeeId)
         {
-            var result = await _db.employees.Where(x=>x.Id == EmployeeId).Select(x => new EmployeeEntity()
+            var result = await _db.Employees.Where(x=>x.Id == EmployeeId).Select(x => new EmployeeEntity()
             {
                 Id = x.Id,
                 FirstName = x.FirstName,
@@ -70,22 +71,29 @@ namespace BonusManagementSystem_Api.Repositories
                 StartDate = DateTime.UtcNow
             };
          
-            _db.employees.Add(result);
+            _db.Employees.Add(result);
             await _db.SaveChangesAsync();
             return result;
 
         }
 
-        public async Task<EmployeeEntity> UpdateEmployee(EmployeeEntity employeeEntity)
+        public async Task<EmployeeEntity> UpdateEmployee(EmployeeRequest request)
         {
-            _db.employees.Update(employeeEntity);
+            var result =await _db.Employees.FirstOrDefaultAsync(x=>x.Id ==request.Id);
+            if(result != null)
+            {
+                result.FirstName = request.FirstName;
+                result.LastName = request.LastName;
+                result.PrivateNumber = request.PrivateNumber;
+                result.Salary = request.Salary;
+                result.RecomedatorId =request.RecomedatorId;
+                result.StartDate = DateTime.UtcNow;
+            }
+
             await _db.SaveChangesAsync();
-            return employeeEntity;
+            return result;
+
         }
-
-       
-
-        
 
     }
 

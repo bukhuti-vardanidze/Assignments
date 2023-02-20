@@ -6,16 +6,13 @@ namespace BonusManagementSystem_Api.Db
 {
     public class AppDbContext : DbContext
     {
-       
-        public DbSet<EmployeeEntity> employees { get; set; }
-        public DbSet<BonusEntity> bonuses { get; set; }
-
-
-
+      
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
 
+        public DbSet<EmployeeEntity> Employees { get; set; }
+        public DbSet<BonusEntity> Bonuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

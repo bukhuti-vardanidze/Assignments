@@ -2,8 +2,9 @@
 {
     public class BonusRequest
     {
-        public int EmployeeId { get; set; }
-        public double BonusQuantity { get; set; }
+        public int BonusId { get; set; }
+        public int RecomendaorId { get;set; }
+        public double BonusNewAmount { get; set; }
 
     }
 }
