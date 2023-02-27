@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPA_Calculator", "..\GPA_Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BonusManagementSystem_Api", "..\BonusManagementSystem_Api\BonusManagementSystem_Api.csproj", "{3821BD1C-18DA-4D63-88C2-F9D625366124}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PricingEngine_Api", "..\PricingEngine_Api\PricingEngine_Api.csproj", "{EA23DC7F-377D-4160-985F-B48CFEF7B57E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{3821BD1C-18DA-4D63-88C2-F9D625366124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3821BD1C-18DA-4D63-88C2-F9D625366124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3821BD1C-18DA-4D63-88C2-F9D625366124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA23DC7F-377D-4160-985F-B48CFEF7B57E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA23DC7F-377D-4160-985F-B48CFEF7B57E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA23DC7F-377D-4160-985F-B48CFEF7B57E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA23DC7F-377D-4160-985F-B48CFEF7B57E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
