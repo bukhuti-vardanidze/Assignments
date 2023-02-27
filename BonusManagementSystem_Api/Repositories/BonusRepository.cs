@@ -1,5 +1,6 @@
 ﻿using BonusManagementSystem_Api.Db;
 using BonusManagementSystem_Api.Db.Entity;
+using BonusManagementSystem_Api.Models;
 using BonusManagementSystem_Api.Models.Requests;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -46,12 +47,12 @@ namespace BonusManagementSystem_Api.Repositories
         }
 
 
-        
+
         public async Task<BonusEntity> AddBonus(int EmployeeId, double bonus)
         {
             var employee = _db.Employees.FirstOrDefault(x => x.Id == EmployeeId);
 
-            var calculate_bonus_1 = bonus/2;
+            var calculate_bonus_1 = bonus;
             var calculate_bonus_2 = calculate_bonus_1 / 2;
             var calculate_bonus_3 = calculate_bonus_2 / 2;
 
@@ -64,20 +65,20 @@ namespace BonusManagementSystem_Api.Repositories
             };
 
             var result = await _db.Bonuses.AddAsync(bonus_1);
-           
+
 
             if (employee.RecomedatorId != 0)
             {
                 var employee_2 = await _db.Employees.FirstOrDefaultAsync(x => x.Id == employee.RecomedatorId);
                 var bonus_2 = new BonusEntity()
                 {
-                    Id =employee_2.Id,
+                    Id = employee_2.Id,
                     BonusQuantity = calculate_bonus_2,
                     BonusIssueTime = DateTime.UtcNow
                 };
 
                 await _db.Bonuses.AddAsync(bonus_2);
-              
+
 
                 if (employee_2.RecomedatorId != 0)
                 {
@@ -90,15 +91,21 @@ namespace BonusManagementSystem_Api.Repositories
                     };
 
                     await _db.Bonuses.AddAsync(bonus_3);
-                   
+
 
                 }
             }
 
             return result.Entity;
-            
+
         }
 
+
+
+
+      
+
+       
 
 
         public async Task SaveChangeAsync()
