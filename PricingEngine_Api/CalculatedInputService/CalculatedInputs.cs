@@ -3,7 +3,7 @@ using PricingEngine_Api.Models;
 using PricingEngine_Api.Models.Request;
 
 
-namespace PricingEngine_Api.Services
+namespace PricingEngine_Api.CalculatedInputsServices
 {
     public class CalculatedInputs
     {

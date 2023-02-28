@@ -9,12 +9,12 @@ namespace PricingEngine_Api.Controllers
     public class UserInputController : ControllerBase
     {
         private readonly IUserInputRepository _userInputRepository;
-        private readonly ICalculationRepository _calculationRepository;
+      
 
-        public UserInputController(IUserInputRepository userInputRepository, ICalculationRepository calculationRepository)
+        public UserInputController(IUserInputRepository userInputRepository)
         {
             _userInputRepository = userInputRepository;
-            _calculationRepository = calculationRepository;
+           
         }
 
         [HttpGet("get-all")]
@@ -30,13 +30,7 @@ namespace PricingEngine_Api.Controllers
             var result = await _userInputRepository.AddUserInput(userInput);
             return Ok(result);
         }
-
-        [HttpPost("Calculate-Balance")]
-        public async Task<IActionResult> CalculateInput(UserInputRequest userInput)
-        {
-            var result = await _calculationRepository.EndingBalance(userInput);
-            return Ok(result);
-        }
+       
 
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PricingEngine_Api.Services;
+using PricingEngine_Api.CalculatedInputsServices;
 using PricingEngine_Api.Db;
 using PricingEngine_Api.Db.Entities;
 using PricingEngine_Api.Models;
@@ -10,7 +10,7 @@ namespace PricingEngine_Api.Repositories
 {
     public interface ICalculationRepository
     {
-        Task<decimal> EndingBalance(UserInputRequest userInput);
+        Task<decimal> EndingBalance(UserInputRequest userInput, int dbId);
     }
 
     public class CalculationRepository : ICalculationRepository
@@ -25,30 +25,27 @@ namespace PricingEngine_Api.Repositories
         private decimal CalculateTotalBalance(UserInputRequest userInput, DataBaseInput dataBaseInput, CalculatedInput calculatedInput)
         {
             decimal CalculateTotalBalance = 0;
-            var TotalBalanceS = userInput.Balance;
-            for (int j = 2; j < 14; j++)
+            var BeginingBalance = userInput.Balance;
+            for (int Index = 2; Index < 14; Index++)
             {
-                var CalculateK = (calculatedInput.UsedPayment * j) + (calculatedInput.UsedPayment * (dataBaseInput.MaintenanceRate / 100)) + (userInput.InterestType == "Variable" ? userInput.CommitmentAmount * userInput.MonthlyFeeIncome : 0);
-                var CalculateL = (userInput.PaymentType == "Interest only" || userInput.PaymentType == "Principal Interest") ? (CalculateK * (userInput.InterestSpread / 100)) + (CalculateK * (userInput.InterestSpread / 100) * calculatedInput.InterestRate) : userInput.CommitmentAmount + userInput.MonthlyFeeIncome + (CalculateK * (userInput.InterestSpread / 100));
-                var CalculateM = (-(CalculateK - CalculateL) > TotalBalanceS) ? -TotalBalanceS : Math.Min(0, CalculateK - CalculateL);
-                var CalculateN = (j >= userInput.OriginalTermInMonths) ? -CalculateL : 0;
-                var CalculateO = CalculateM + CalculateN;
-                var CalculateP = (-CalculateO >= TotalBalanceS) ? 0 : Math.Max(-(TotalBalanceS + CalculateO), -(dataBaseInput.PrepaymentRate / 100) * TotalBalanceS);
-                var CalculateQ = CalculateO + CalculateP + (CalculateP * calculatedInput.CapitalAllcationRate);
-                var CalculateR = CalculateQ * calculatedInput.InterestRate;
-                var totalT = TotalBalanceS + CalculateQ;
-                CalculateTotalBalance += totalT;
-                TotalBalanceS = totalT;
-
+                var CalculatePaymentAmount = (calculatedInput.UsedPayment * Index) + (calculatedInput.UsedPayment * (dataBaseInput.MaintenanceRate / 100)) + (userInput.InterestType == "Variable" ? userInput.CommitmentAmount * userInput.MonthlyFeeIncome : 0);
+                var CalculateContractualInterest = (userInput.PaymentType == "Interest only" || userInput.PaymentType == "Principal Interest") ? (CalculatePaymentAmount * (userInput.InterestSpread / 100)) + (CalculatePaymentAmount * (userInput.InterestSpread / 100) * calculatedInput.InterestRate) : userInput.CommitmentAmount + userInput.MonthlyFeeIncome + (CalculatePaymentAmount * (userInput.InterestSpread / 100));
+                var CalculateContractualPrincipal = (-(CalculatePaymentAmount - CalculateContractualInterest) > BeginingBalance) ? -BeginingBalance : Math.Min(0, CalculatePaymentAmount - CalculateContractualInterest);
+                var CalculateBaloonPaymentAtMaturity = (Index >= userInput.OriginalTermInMonths) ? -CalculateContractualInterest : 0;
+                var CalculateTotalContractualCashflow = CalculateContractualPrincipal + CalculateBaloonPaymentAtMaturity;
+                var CalculatePrepaymentCashflow = (-CalculateTotalContractualCashflow >= BeginingBalance) ? 0 : Math.Max(-(BeginingBalance + CalculateTotalContractualCashflow), -(dataBaseInput.PrepaymentRate / 100) * BeginingBalance);
+                var CalculateTotalPrincipalPaid = CalculateTotalContractualCashflow + CalculatePrepaymentCashflow + (CalculatePrepaymentCashflow * calculatedInput.CapitalAllcationRate);
+                var CalculateAnnualaizedInterestOnCashFlow = CalculateTotalPrincipalPaid * calculatedInput.InterestRate;
+                var CalculateEndingBalance = BeginingBalance + CalculateTotalPrincipalPaid;
+                CalculateTotalBalance += CalculateEndingBalance;
             }
             return CalculateTotalBalance;
-
         }
 
-        public async Task<decimal> EndingBalance(UserInputRequest userInput)
+        public async Task<decimal> EndingBalance(UserInputRequest userInput, int dbId)
         {
-            var TakeDabaseInput = await _db.DataBaseInputs.FirstOrDefaultAsync();
-            CalculatedInput calculatedInput = CalculatedInputs.Calculate(userInput, TakeDabaseInput);
+            var TakeDabaseInput = await _db.DataBaseInputs.Where(x=>x.DataBaseInputId == dbId).FirstOrDefaultAsync();
+            var calculatedInput = CalculatedInputs.Calculate(userInput, TakeDabaseInput);
 
             var EndingBalance = CalculateTotalBalance(userInput, TakeDabaseInput, calculatedInput);
             return EndingBalance;
